@@ -1,4 +1,24 @@
 from main import Iec104
+print('=' * 50)
+print(f'type 0x01 (1). SIQ. SQ=1')
+telegram = Iec104('68 0F A6 44 04 02 01 82 14 00 73 00 FB 01 00 00 01')
+telegram.report()
+
+
+print('=' * 50)
+print(f'type 0x01 (1). SIQ. SQ=0')
+telegram = Iec104('68 12 A8 44 04 02 01 02 14 00 73 00 CC 14 00 01 E4 14 00 00')
+telegram.report()
+
+print('=' * 50)
+print(f'type 0x0D (03). DIQ')
+telegram = Iec104('68 12 12 44 00 02 03 02 14 00 73 00 5A 02 00 02 EB 03 00 00 ')
+telegram.report()
+
+print('=' * 50)
+print(f'type 0x09 (9). NVA. SQ=1')
+telegram = Iec104('68 13 14 44 00 02 09 82 14 00 73 00 89 02 00 00 00 00 EF 01 00')
+telegram.report()
 
 print('=' * 50)
 print(f'type 0x0D (13). IEEE STD 754 QDS')
