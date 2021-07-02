@@ -2,6 +2,13 @@ import struct
 import binascii
 from datetime import datetime
 
+qoi_dict = {0: 'not used',
+            **dict.fromkeys([i for i in range(1, 20)], 'reserved for standard definitions of this companion standard'),
+            20: 'global station interrogation',
+            **dict.fromkeys([i for i in range(37, 64)], 'reserved for future norm definitions of this companion standard (compatible range)'),
+            **dict.fromkeys([i for i in range(64, 256)], 'reserved for user definitions (private range)'),
+            **{i: f'group {i - 20} station interrogation' for i in range(21, 37)}}
+
 
 def byte_to_dec(byte, start=0, stop=8):
     bits = byte_to_bit(byte)
@@ -93,7 +100,8 @@ def QDS(byte):
 
 
 def QOI(byte):
-    result = byte_to_dec(byte)
+    int_ = byte_to_dec(byte)
+    result = f'{int_} {qoi_dict[int_]}'
     return result
 
 
