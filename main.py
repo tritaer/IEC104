@@ -257,7 +257,7 @@ class Iec104:
         print(f'Type identification {self.type_identification}')
         print(f'SQ {self.SQ}')
         print(f'Number of objects {self.number_of_objects} ({self.number_of_objects})')
-        print(f'COT {self.COT}, {cot_dict[int(self.COT)]}')
+        print(f'COT {self.COT}, {cot_dict[int(self.COT, 16)]}')
         print(f'ORG {self.ORG}')
         print(f'COA {self.COA} ({int(self.COA, 16)})')
         for x in self.objects:
