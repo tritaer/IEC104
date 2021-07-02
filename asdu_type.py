@@ -81,7 +81,7 @@ def type_9(inf_element):
     if len(inf_element) == 6:
         address = get_ioa(inf_element)
         print(f'IOA {address}')
-    data = NVA(inf_element[3])
+    data = NVA(inf_element[-3: -1])
     qb = QDS(inf_element[-1])
     print(f'value: {data} {qb}')
 
