@@ -109,7 +109,11 @@ def CP16Time2a(array):
     ms = int(array[1] + array[0], 16)
     microsecond = ms % 1000 * 1000
     second = ms // 1000
-    dt = datetime(second=second, microsecond=microsecond)
+    try:
+        dt = datetime(second=second, microsecond=microsecond)
+    except ValueError as e:
+        dt = f'{second}.{microsecond}'
+        print(e)
     return dt
 
 
@@ -118,7 +122,11 @@ def CP24Time2a(array):
     microsecond = ms % 1000 * 1000
     second = ms // 1000
     minute = byte_to_dec(array[2], 2)
-    dt = datetime(minute=minute, second=second, microsecond=microsecond)
+    try:
+        dt = datetime(minute=minute, second=second, microsecond=microsecond)
+    except ValueError as e:
+        dt = f'{minute}:{second}.{microsecond}'
+        print(e)
     return dt
 
 
@@ -131,19 +139,16 @@ def CP56Time2a(array):
     day = byte_to_dec(array[4], 3)
     month = byte_to_dec(array[5], 4)
     year = byte_to_dec(array[6], 1)
-    dt = datetime(year + 2000, month, day, hour, minute, second, microsecond)
+    try:
+        dt = datetime(year + 2000, month, day, hour, minute, second, microsecond)
+    except ValueError as e:
+        dt = f'{year + 2000}-{month}-{day} {hour}:{minute}:{second}.{microsecond}'
+        print(e)
     return dt
-
-
-progres = {'SIQ': '+', 'DIQ': '+', 'BSI': '+', 'SCD': '-', 'QDS': '+', 'VTI': '1',
-           'NVA': '+', 'SVA': '+', 'IEEE_STD_754': '+', 'BCR': '5', }
 
 
 def SCD(array):
     print('not ready yet')
-
-
-
 
 
 def BCR(array):

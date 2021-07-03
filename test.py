@@ -1,5 +1,16 @@
 from main import Iec104
 print('=' * 50)
+print(f'S-type')
+telegram = Iec104('68 04 01 00 22 00')
+telegram.report()
+
+print('=' * 50)
+print(f'U-type')
+telegram = Iec104('68 04 07 00 00 00')
+telegram.report()
+
+
+print('=' * 50)
 print(f'type 0x01 (1). SIQ. SQ=1')
 telegram = Iec104('68 0F A6 44 04 02 01 82 14 00 73 00 FB 01 00 00 01')
 telegram.report()

@@ -1,19 +1,6 @@
 from information_elements import *
 
 
-def print_result(data=None, address=None, qb=None, date=None):
-    if address:
-        print(f'IOA {address}')
-    result = ''
-    if data:
-        result += f'value: {data}'
-    if qb:
-        result += f', quality bid: {qb}'
-    if date:
-        result += f', date: {date}'
-    print(result)
-
-
 def type_in_development(inf_element):
     print('type under development')
 
@@ -24,7 +11,7 @@ def type_1(inf_element):
     else:
         address = None
     data = SIQ(inf_element[-1])
-    print_result(data, address)
+    return {'data': data, 'address': address}
 
 
 def type_2(inf_element):
@@ -34,7 +21,7 @@ def type_2(inf_element):
         address = None
     data = SIQ(inf_element[-4])
     date = CP24Time2a(inf_element[-3:])
-    print_result(data, address, date=date)
+    return {'data': data, 'address': address, 'date': date}
 
 
 def type_3(inf_element):
@@ -43,7 +30,7 @@ def type_3(inf_element):
     else:
         address = None
     data = DIQ(inf_element[-1])
-    print_result(data, address)
+    return {'data': data, 'address': address}
 
 
 def type_4(inf_element):
@@ -53,7 +40,7 @@ def type_4(inf_element):
         address = None
     data = DIQ(inf_element[-4])
     date = CP24Time2a(inf_element[-3:])
-    print_result(data, address, date=date)
+    return {'data': data, 'address': address, 'date': date}
 
 
 def type_5(inf_element):
@@ -63,7 +50,7 @@ def type_5(inf_element):
         address = None
     data = VTI(inf_element[-2])
     qb = QDS(inf_element[-1])
-    print_result(data, address, qb)
+    return {'data': data, 'address': address, 'qb': qb}
 
 
 def type_6(inf_element):
@@ -74,7 +61,7 @@ def type_6(inf_element):
     data = VTI(inf_element[-5])
     qb = QDS(inf_element[-4])
     date = CP24Time2a(inf_element[-3:])
-    print_result(data, address, qb, date)
+    return {'data': data, 'address': address, 'qb': qb, 'date': date}
 
 
 def type_7(inf_element):
@@ -84,7 +71,7 @@ def type_7(inf_element):
         address = None
     data = BSI(inf_element[-5:-1])
     qb = QDS(inf_element[-1])
-    print_result(data, address, qb)
+    return {'data': data, 'address': address, 'qb': qb}
 
 
 def type_8(inf_element):
@@ -95,7 +82,7 @@ def type_8(inf_element):
     data = BSI(inf_element[-8:-4])
     qb = QDS(inf_element[-4])
     date = CP24Time2a(inf_element[-3:])
-    print_result(data, address, qb, date)
+    return {'data': data, 'address': address, 'qb': qb, 'date': date}
 
 
 def type_9(inf_element):
@@ -105,7 +92,7 @@ def type_9(inf_element):
         address = None
     data = NVA(inf_element[-3: -1])
     qb = QDS(inf_element[-1])
-    print_result(data, address, qb)
+    return {'data': data, 'address': address, 'qb': qb}
 
 
 def type_a(inf_element):
@@ -116,7 +103,7 @@ def type_a(inf_element):
     data = NVA(inf_element[3])
     qb = QDS(inf_element[-4])
     date = CP24Time2a(inf_element[-3:])
-    print_result(data, address, qb, date)
+    return {'data': data, 'address': address, 'qb': qb, 'date': date}
 
 
 def type_b(inf_element):
@@ -126,7 +113,7 @@ def type_b(inf_element):
         address = None
     data = SVA(inf_element[-3:-1])
     qb = QDS(inf_element[-1])
-    print_result(data, address, qb)
+    return {'data': data, 'address': address, 'qb': qb}
 
 
 def type_c(inf_element):
@@ -137,7 +124,7 @@ def type_c(inf_element):
     data = SVA(inf_element[-6:-4])
     qb = QDS(inf_element[-4])
     date = CP24Time2a(inf_element[-3:])
-    print_result(data, address, qb, date)
+    return {'data': data, 'address': address, 'qb': qb, 'date': date}
 
 
 def type_d(inf_element):
@@ -147,7 +134,7 @@ def type_d(inf_element):
         address = None
     data = IEEE_STD_754(inf_element[-5: -1])
     qb = QDS(inf_element[-1])
-    print_result(data, address, qb)
+    return {'data': data, 'address': address, 'qb': qb}
 
 
 def type_e(inf_element):
@@ -158,7 +145,7 @@ def type_e(inf_element):
     data = IEEE_STD_754(inf_element[-8: -4])
     qb = QDS(inf_element[-4])
     date = CP24Time2a(inf_element[-3:])
-    print_result(data, address, qb, date)
+    return {'data': data, 'address': address, 'qb': qb, 'date': date}
 
 
 def type_15(inf_element):
@@ -167,7 +154,7 @@ def type_15(inf_element):
     else:
         address = None
     data = NVA(inf_element[-2:])
-    print_result(data, address)
+    return {'data': data, 'address': address}
 
 
 # long time tag
@@ -178,7 +165,7 @@ def type_1e(inf_element):
         address = None
     data = SIQ(inf_element[-8])
     date = CP56Time2a(inf_element[-7:])
-    print_result(data, address, date=date)
+    return {'data': data, 'address': address, 'date': date}
 
 
 def type_1f(inf_element):
@@ -188,7 +175,7 @@ def type_1f(inf_element):
         address = None
     data = DIQ(inf_element[-8])
     date = CP56Time2a(inf_element[-7:])
-    print_result(data, address, date=date)
+    return {'data': data, 'address': address, 'date': date}
 
 
 def type_20(inf_element):
@@ -199,7 +186,7 @@ def type_20(inf_element):
     data = VTI(inf_element[-9])
     qb = QDS(inf_element[-8])
     date = CP56Time2a(inf_element[-7:])
-    print_result(data, address, qb, date)
+    return {'data': data, 'address': address, 'qb': qb, 'date': date}
 
 
 def type_21(inf_element):
@@ -210,7 +197,7 @@ def type_21(inf_element):
     data = BSI(inf_element[-12: -8])
     qb = QDS(inf_element[-8])
     date = CP56Time2a(inf_element[-7:])
-    print_result(data, address, qb, date)
+    return {'data': data, 'address': address, 'qb': qb, 'date': date}
 
 
 def type_22(inf_element):
@@ -221,7 +208,7 @@ def type_22(inf_element):
     data = NVA(inf_element[-10: -8])
     qb = QDS(inf_element[-8])
     date = CP56Time2a(inf_element[-7:])
-    print_result(data, address, qb, date)
+    return {'data': data, 'address': address, 'qb': qb, 'date': date}
 
 
 def type_23(inf_element):
@@ -232,7 +219,7 @@ def type_23(inf_element):
     data = SVA(inf_element[-10: -8])
     qb = QDS(inf_element[-8])
     date = CP56Time2a(inf_element[-7:])
-    print_result(data, address, qb, date)
+    return {'data': data, 'address': address, 'qb': qb, 'date': date}
 
 
 def type_24(inf_element):
@@ -243,7 +230,7 @@ def type_24(inf_element):
     data = IEEE_STD_754(inf_element[-12: -8])
     qb = QDS(inf_element[-8])
     date = CP56Time2a(inf_element[-7:])
-    print_result(data, address, qb, date)
+    return {'data': data, 'address': address, 'qb': qb, 'date': date}
 
 
 def type_26(inf_element):
@@ -254,9 +241,9 @@ def type_26(inf_element):
     date1 = CP16Time2a(inf_element[-5:-7])
     date2 = CP56Time2a(inf_element[-7:])
     date = f'CP16: {date1}, CP56: {date2}'
-    print_result(address=address, date=date)
+    return {'address': address, 'date': date}
 
 
 def type_64(inf_elem):
     data = QOI(inf_elem[-1])
-    print_result(data)
+    return {'data': data}
