@@ -198,7 +198,13 @@ def control_field_number(cf):
 
 class Iec104:
     def __init__(self, message):
-        self.message = re.findall('[A-F0-9]{2}', message)
+        self.error = False
+        message = re.findall('[A-Fa-f0-9]{2}', message)
+        self.message = [i.upper() for i in message]
+        if len(self.message) < 4:
+            self.error = True
+            print('message to short')
+            return
         self.start = self.message[0]
         self.length = self.message[1]
         self.control_field = self.message[2: 6]
@@ -223,6 +229,8 @@ class Iec104:
             # print(self.objects)
 
     def report(self):
+        if self.error:
+            return
         if self.start != '68':
             return print('package must start with 68')
         elif int(self.length, 16) != (len(self.message) - 2):
