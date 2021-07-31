@@ -1,13 +1,20 @@
 import argparse
 from asdu_type import *
 
+line_separator = '/n'
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--head', action='store_true', help='Print only APCI part of telegram')
 parser.add_argument('--body', action='store_true', help='Print only ASDU part of telegram')
+parser.add_argument('--less', action='store_true', help='Print more compact')
 args = parser.parse_args()
 
 HEAD = args.head
 BODY = args.body
+LESS = args.less
+
+if LESS:
+    line_separator = ', '
 
 # %% 104 configuration dictionary
 ASDU_TYPE = {
@@ -191,3 +198,10 @@ cot_dict = {0: 'Not used', 1: 'Cyclic data', 2: 'Background request', 3: 'Sponta
             41: 'Counter request of group 4',
             44: 'Unknown type', 45: 'Unknown transmission cause', 46: 'Unknown collective ASDU address',
             47: 'Unknown object address'}
+
+u_type_dict = {'43': 'Test Frame Activation',
+               '83': 'Test Frame Confirmation',
+               '13': 'Stop Data Transfer Activation',
+               '23': 'Stop Data Transfer Confirmation',
+               '07': 'Start Data Transfer Activation',
+               '0B': 'Start Data Transfer Confirmation'}

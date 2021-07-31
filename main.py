@@ -18,9 +18,9 @@ def control_field_number(cf):
 
 def print_result(data=None, address=None, qb=None, date=None):
     if address:
-        print(f'IOA {address}')
+        print(f'IOA {address}', end=line_separator)
     result = ''
-    if data:
+    if data is not None:  # need to print even if data == 0
         result += f'value: {data}'
     if qb:
         result += f', quality bid: {qb}'
@@ -47,7 +47,6 @@ class Iec104:
             return
         elif int(self.length, 16) != (len(self.message) - 2):  # second octet is length of telegram
             self.error = True
-            print(f'mismatch length of APDU and telegram length {int(self.length, 16)} != {(len(self.message) - 2)}')
             return
 
         if int(self.length, 16) > 4:  # S-type and U-type have length 4. I-type always longer
@@ -74,7 +73,7 @@ class Iec104:
         if BODY and not HEAD:
             print('U format not have ASDU')
             return
-        print('S format')
+        print('S format', end=line_separator)
         print(f'Receive sequence {control_field_number(self.control_field[2:])}')
 
     def report_u_type(self):
@@ -82,36 +81,27 @@ class Iec104:
             print('U format not have ASDU')
             return
         print('U format')
-        if self.control_field[0] == '43':
-            print('Test Frame Activation')
-        elif self.control_field[0] == '83':
-            print('Test Frame Confirmation')
-        elif self.control_field[0] == '13':
-            print('Stop Data Transfer Activation')
-        elif self.control_field[0] == '23':
-            print('Stop Data Transfer Confirmation')
-        elif self.control_field[0] == '07':
-            print('Start Data Transfer Activation')
-        elif self.control_field[0] == '0B':
-            print('Start Data Transfer Confirmation')
-        print(f'Send sequence {control_field_number(self.control_field[:2])}')
+        print(u_type_dict[self.control_field[0]])
+        print(f'Send sequence {control_field_number(self.control_field[:2])}', end=line_separator)
         print(f'Receive sequence {control_field_number(self.control_field[2:])}')
 
     def report_i_type(self):
         print('I format')
         if HEAD or not (HEAD or BODY):
-            print(f'Send sequence {control_field_number(self.control_field[:2])}')
-            print(f'Receive sequence {control_field_number(self.control_field[2:])}')
             if self.number_of_objects != len(self.objects):
                 return print('mismatch Number of objects')
-            print(f'Type identification {self.type_identification}')
-            print(f'SQ {self.SQ}')
-            print(f'Number of objects {self.number_of_objects} ({self.number_of_objects})')
+            print(f'Send sequence {control_field_number(self.control_field[:2])}', end=line_separator)
+            print(f'Receive sequence {control_field_number(self.control_field[2:])}', end=line_separator)
+            print(f'Type identification {self.type_identification}, ({int(self.type_identification, 16)})',
+                  end=line_separator)
+            print(f'{self.asdu_type["reference"]}, {self.asdu_type["format"]}', end=line_separator)
+            print(f'SQ {self.SQ}', end=line_separator)
+            print(f'Number of objects {self.number_of_objects}', end=line_separator)
             try:
-                print(f'COT {self.COT}, {cot_dict[self.COT]}')
+                print(f'COT {self.COT}, {cot_dict[self.COT]}', end=line_separator)
             except IndexError as e:
-                print(f'ERROR: unknown COT {self.COT}, {int(self.COT, 16)}')
-            print(f'ORG {self.ORG}')
+                print(f'ERROR: unknown COT {self.COT}, ({int(self.COT, 16)})', end=line_separator)
+            print(f'ORG {self.ORG}', end=line_separator)
             print(f'COA {self.COA} ({int(self.COA, 16)})')
         if BODY or not (HEAD or BODY):
             for x in self.objects:
@@ -122,6 +112,7 @@ class Iec104:
 
     def report(self):
         if self.error:
+            print(f'mismatch length of APDU and telegram length {int(self.length, 16)} != {(len(self.message) - 2)}')
             return
         if byte_to_dec(self.control_field[0], 6) == 1:  # if last to bits is 1 -> is S type telegram
             self.report_s_type()
