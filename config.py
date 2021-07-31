@@ -174,7 +174,8 @@ information_elements_length = {
     # Qualifiers
     'QOI': 1, 'QCC': 1, 'QPM': 1, 'QPA': 1, 'QRP': 1, 'QOC': 1, 'QOS': 1,
     # File Transfer
-    'FRQ': 1, 'SRQ': 1, 'SCQ': 1
+    'FRQ': 1, 'SRQ': 1, 'SCQ': 1, 'LSQ': 1, 'AFQ': 1, 'NOF': 2, 'NOS': 2, 'LOF': 3, 'LOS': 1, 'CHS': 1, 'SOF': 1,
+    'COI': 1, 'FBP': 2
 }
 
 cot_dict = {0: 'Not used', 1: 'Cyclic data', 2: 'Background request', 3: 'Spontaneous data',

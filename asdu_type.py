@@ -2,7 +2,7 @@ from information_elements import *
 
 
 def type_in_development(inf_element):
-    print('type under development')
+    return {'data': 'type under development'}
 
 
 def type_1(inf_element):
