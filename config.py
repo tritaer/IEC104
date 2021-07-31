@@ -6,7 +6,7 @@ line_separator = '/n'
 parser = argparse.ArgumentParser()
 parser.add_argument('--head', action='store_true', help='Print only APCI part of telegram')
 parser.add_argument('--body', action='store_true', help='Print only ASDU part of telegram')
-parser.add_argument('--less', action='store_true', help='Print more compact')
+parser.add_argument('--less', action='store_true', help='Print result more compact')
 args = parser.parse_args()
 
 HEAD = args.head
