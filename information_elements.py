@@ -1,6 +1,7 @@
 import struct
 import binascii
 from datetime import datetime
+from datetime import time
 
 qoi_dict = {0: 'not used',
             **dict.fromkeys([i for i in range(1, 20)], 'reserved for standard definitions of this companion standard'),
@@ -110,7 +111,7 @@ def CP16Time2a(array):
     microsecond = ms % 1000 * 1000
     second = ms // 1000
     try:
-        dt = datetime(second=second, microsecond=microsecond)
+        dt = time(second=second, microsecond=microsecond)
     except ValueError as e:
         dt = f'{second}.{microsecond}'
         print(e)
@@ -123,7 +124,7 @@ def CP24Time2a(array):
     second = ms // 1000
     minute = byte_to_dec(array[2], 2)
     try:
-        dt = datetime(minute=minute, second=second, microsecond=microsecond)
+        dt = time(minute=minute, second=second, microsecond=microsecond)
     except ValueError as e:
         dt = f'{minute}:{second}.{microsecond}'
         print(e)
