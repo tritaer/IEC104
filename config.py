@@ -1,7 +1,7 @@
 import argparse
 from asdu_type import *
 
-line_separator = '/n'
+line_separator = '\n'
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--head', action='store_true', help='Print only APCI part of telegram')
