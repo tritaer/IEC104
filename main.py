@@ -12,7 +12,7 @@ def control_field_number(cf):
     bits_1 = bin(decimal_1)[2:].zfill(8)
     decimal_2 = int(cf[1], 16)
     bits_2 = bin(decimal_2)[2:].zfill(8)
-    integer = int(bits_1 + bits_2[: -1], 2)
+    integer = int(bits_2 + bits_1[: -1], 2)
     return integer
 
 
